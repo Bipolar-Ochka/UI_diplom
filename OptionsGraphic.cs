@@ -73,6 +73,7 @@ namespace UI_diplom
         private void Save_Click(object sender, EventArgs e)
         {
             setSettings();
+            this.Close();
         }
     }
 }

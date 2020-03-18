@@ -36,6 +36,7 @@
             this.DihtomiaLipzitsValue = new System.Windows.Forms.NumericUpDown();
             this.DihtomiaRule = new System.Windows.Forms.Label();
             this.DihtomiaRuleValue = new System.Windows.Forms.ComboBox();
+            this.DihtomiaInput = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DihtomiaPrecisionValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DihtomiaLipzitsValue)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // DihtomiaPrecisionValue
             // 
+            this.DihtomiaPrecisionValue.DecimalPlaces = 10;
             this.DihtomiaPrecisionValue.Increment = new decimal(new int[] {
             1,
             0,
@@ -103,6 +105,7 @@
             // 
             // DihtomiaLipzitsValue
             // 
+            this.DihtomiaLipzitsValue.DecimalPlaces = 10;
             this.DihtomiaLipzitsValue.Increment = new decimal(new int[] {
             1,
             0,
@@ -126,7 +129,7 @@
             // DihtomiaRule
             // 
             this.DihtomiaRule.AutoSize = true;
-            this.DihtomiaRule.Location = new System.Drawing.Point(8, 182);
+            this.DihtomiaRule.Location = new System.Drawing.Point(50, 182);
             this.DihtomiaRule.Name = "DihtomiaRule";
             this.DihtomiaRule.Size = new System.Drawing.Size(280, 13);
             this.DihtomiaRule.TabIndex = 6;
@@ -136,15 +139,26 @@
             // 
             this.DihtomiaRuleValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DihtomiaRuleValue.FormattingEnabled = true;
-            this.DihtomiaRuleValue.Location = new System.Drawing.Point(302, 179);
+            this.DihtomiaRuleValue.Location = new System.Drawing.Point(53, 198);
             this.DihtomiaRuleValue.Name = "DihtomiaRuleValue";
-            this.DihtomiaRuleValue.Size = new System.Drawing.Size(86, 21);
+            this.DihtomiaRuleValue.Size = new System.Drawing.Size(277, 21);
             this.DihtomiaRuleValue.TabIndex = 7;
+            // 
+            // DihtomiaInput
+            // 
+            this.DihtomiaInput.Location = new System.Drawing.Point(11, 247);
+            this.DihtomiaInput.Name = "DihtomiaInput";
+            this.DihtomiaInput.Size = new System.Drawing.Size(377, 56);
+            this.DihtomiaInput.TabIndex = 8;
+            this.DihtomiaInput.Text = "Принять параметры";
+            this.DihtomiaInput.UseVisualStyleBackColor = true;
+            this.DihtomiaInput.Click += new System.EventHandler(this.DihtomiaInput_Click);
             // 
             // DihtomiaPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.DihtomiaInput);
             this.Controls.Add(this.DihtomiaRuleValue);
             this.Controls.Add(this.DihtomiaRule);
             this.Controls.Add(this.DihtomiaLipzitsValue);
@@ -172,5 +186,6 @@
         private System.Windows.Forms.NumericUpDown DihtomiaLipzitsValue;
         private System.Windows.Forms.Label DihtomiaRule;
         private System.Windows.Forms.ComboBox DihtomiaRuleValue;
+        internal System.Windows.Forms.Button DihtomiaInput;
     }
 }

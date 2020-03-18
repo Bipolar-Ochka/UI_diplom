@@ -38,8 +38,11 @@
             this.опцииГрафикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormSplitContainer = new System.Windows.Forms.SplitContainer();
             this.subSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.DihtomiaPanel = new UI_diplom.MethodPanels.DihtomiaPanel();
+            this.ModMetPanel = new UI_diplom.MethodPanels.ModifiedMethodPanel();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormSplitContainer)).BeginInit();
+            this.mainFormSplitContainer.Panel1.SuspendLayout();
             this.mainFormSplitContainer.Panel2.SuspendLayout();
             this.mainFormSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subSplitContainer)).BeginInit();
@@ -69,7 +72,7 @@
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -87,12 +90,14 @@
             this.мНПНаОсновеДихтомииToolStripMenuItem.Name = "мНПНаОсновеДихтомииToolStripMenuItem";
             this.мНПНаОсновеДихтомииToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.мНПНаОсновеДихтомииToolStripMenuItem.Text = "МНП на основе дихтомии";
+            this.мНПНаОсновеДихтомииToolStripMenuItem.Click += new System.EventHandler(this.мНПНаОсновеДихтомииToolStripMenuItem_Click);
             // 
             // мНПМодификацияНКАToolStripMenuItem
             // 
             this.мНПМодификацияНКАToolStripMenuItem.Name = "мНПМодификацияНКАToolStripMenuItem";
             this.мНПМодификацияНКАToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.мНПМодификацияНКАToolStripMenuItem.Text = "МНП модификация Н.К.А.";
+            this.мНПМодификацияНКАToolStripMenuItem.Click += new System.EventHandler(this.мНПМодификацияНКАToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
@@ -117,6 +122,11 @@
             this.mainFormSplitContainer.Location = new System.Drawing.Point(0, 24);
             this.mainFormSplitContainer.Name = "mainFormSplitContainer";
             // 
+            // mainFormSplitContainer.Panel1
+            // 
+            this.mainFormSplitContainer.Panel1.Controls.Add(this.ModMetPanel);
+            this.mainFormSplitContainer.Panel1.Controls.Add(this.DihtomiaPanel);
+            // 
             // mainFormSplitContainer.Panel2
             // 
             this.mainFormSplitContainer.Panel2.Controls.Add(this.subSplitContainer);
@@ -136,6 +146,22 @@
             this.subSplitContainer.SplitterDistance = 210;
             this.subSplitContainer.TabIndex = 0;
             // 
+            // DihtomiaPanel
+            // 
+            this.DihtomiaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DihtomiaPanel.Location = new System.Drawing.Point(0, 0);
+            this.DihtomiaPanel.Name = "DihtomiaPanel";
+            this.DihtomiaPanel.Size = new System.Drawing.Size(396, 422);
+            this.DihtomiaPanel.TabIndex = 0;
+            // 
+            // ModMetPanel
+            // 
+            this.ModMetPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ModMetPanel.Location = new System.Drawing.Point(0, 0);
+            this.ModMetPanel.Name = "ModMetPanel";
+            this.ModMetPanel.Size = new System.Drawing.Size(396, 422);
+            this.ModMetPanel.TabIndex = 1;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,11 +169,14 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainFormSplitContainer);
             this.Controls.Add(this.mainMenuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.mainMenuStrip;
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Решение задач многомерной оптимизации";
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
+            this.mainFormSplitContainer.Panel1.ResumeLayout(false);
             this.mainFormSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainFormSplitContainer)).EndInit();
             this.mainFormSplitContainer.ResumeLayout(false);
@@ -170,6 +199,8 @@
         private System.Windows.Forms.ToolStripMenuItem мНПМодификацияНКАToolStripMenuItem;
         private System.Windows.Forms.SplitContainer mainFormSplitContainer;
         private System.Windows.Forms.SplitContainer subSplitContainer;
+        private MethodPanels.DihtomiaPanel DihtomiaPanel;
+        private MethodPanels.ModifiedMethodPanel ModMetPanel;
     }
 }
 
