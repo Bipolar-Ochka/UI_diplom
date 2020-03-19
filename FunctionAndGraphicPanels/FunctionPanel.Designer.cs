@@ -96,18 +96,18 @@
             this.FunctionLowBoundTitle.AutoSize = true;
             this.FunctionLowBoundTitle.Location = new System.Drawing.Point(4, 116);
             this.FunctionLowBoundTitle.Name = "FunctionLowBoundTitle";
-            this.FunctionLowBoundTitle.Size = new System.Drawing.Size(150, 13);
+            this.FunctionLowBoundTitle.Size = new System.Drawing.Size(153, 13);
             this.FunctionLowBoundTitle.TabIndex = 4;
-            this.FunctionLowBoundTitle.Text = "I вершина параллелепипеда";
+            this.FunctionLowBoundTitle.Text = "I вершина параллелепипеда:";
             // 
             // FunctionUpBoundTitle
             // 
             this.FunctionUpBoundTitle.AutoSize = true;
             this.FunctionUpBoundTitle.Location = new System.Drawing.Point(4, 141);
             this.FunctionUpBoundTitle.Name = "FunctionUpBoundTitle";
-            this.FunctionUpBoundTitle.Size = new System.Drawing.Size(150, 13);
+            this.FunctionUpBoundTitle.Size = new System.Drawing.Size(156, 13);
             this.FunctionUpBoundTitle.TabIndex = 5;
-            this.FunctionUpBoundTitle.Text = "I вершина параллелепипеда";
+            this.FunctionUpBoundTitle.Text = "II вершина параллелепипеда:";
             // 
             // FunctionLowBoundTextBox
             // 

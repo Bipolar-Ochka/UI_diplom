@@ -11,21 +11,10 @@ using static MultiDimensionOptimization.MDO;
 
 namespace UI_diplom.FunctionAndGraphicPanels
 {
-    internal class FunctionItem
-    {
-        internal OptimizingFunction Function { get; private set; }
-        
-        internal LipzitsFunction LipzitsFunction { get; private set; }
-        internal uint MinVarCount { get; private set; }
-        internal uint MaxVarCount { get; private set; }
-        internal FunctionItem(OptimizingFunction func, LipzitsFunction lip, uint minVarCount, uint maxVarCount)
-        {
-
-        }
-    }
+    
     public partial class FunctionPanel : UserControl
     {
-        public delegate void FunctionParamsHandler(OptimizingFunction func,LipzitsFunction lipz, List<double> lowerBound, List<double> upperBound);
+        public delegate void FunctionParamsHandler(OptimizingFunction func, LipzitsFunction lipz, List<double> lowerBound, List<double> upperBound);
         public event FunctionParamsHandler FunctionGetParams;
         public FunctionPanel()
         {
@@ -41,12 +30,12 @@ namespace UI_diplom.FunctionAndGraphicPanels
             };
             OptimizingFunction secondFunc = (List<double> vars) => {
                 double pow = vars.Select(x => Math.Abs(x)).Sum();
-                double pow2 = vars.Select(x => Math.Cos(2*Math.PI*x)).Sum();
-                return -10 * Math.Exp(-Math.Sqrt(pow / vars.Count))-Math.Exp(pow2/vars.Count);
+                double pow2 = vars.Select(x => Math.Cos(2 * Math.PI * x)).Sum();
+                return -10 * Math.Exp(-Math.Sqrt(pow / vars.Count)) - Math.Exp(pow2 / vars.Count);
             };
             LipzitsFunction first = (double epsilon) => 25 / epsilon;
             LipzitsFunction second = (double epsilon) => 25 / epsilon - 2 * Math.PI * Math.E;
-            
+
         }
 
         private void FunctionLowBoundTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -64,10 +53,12 @@ namespace UI_diplom.FunctionAndGraphicPanels
                 if (e.KeyChar == '-')
                 {
                     e.Handled = !(((tb.Text.Length != 0) && Char.IsWhiteSpace(tb.Text.Last())) || (tb.Text.Length == 0));
-                }else if (e.KeyChar == ',')
+                }
+                else if (e.KeyChar == ',')
                 {
                     e.Handled = !((tb.Text.Length != 0) && Char.IsNumber(tb.Text.Last()));
-                }else if (!Char.IsNumber(e.KeyChar))
+                }
+                else if (!Char.IsNumber(e.KeyChar))
                 {
                     e.Handled = true;
                 }
@@ -104,7 +95,7 @@ namespace UI_diplom.FunctionAndGraphicPanels
         {
             int variablesCount = Convert.ToInt32(VarsCountNumeric.Value);
             var rawLowBound = FunctionLowBoundTextBox.Text.Split(' ');
-            if(rawLowBound.Length < variablesCount)
+            if (rawLowBound.Length < variablesCount)
             {
                 throw new Exception("Не хватает параметров для I-ой вершины параллелепипеда");
             }
@@ -113,9 +104,9 @@ namespace UI_diplom.FunctionAndGraphicPanels
             {
                 throw new Exception("Не хватает параметров для II-ой вершины параллелепипеда");
             }
-            double temp=0;
+            double temp = 0;
             List<double> lowBound = rawLowBound.Take(variablesCount).Where(item => Double.TryParse(item, out temp)).Select(item => temp).ToList();
-            if(lowBound.Count < variablesCount)
+            if (lowBound.Count < variablesCount)
             {
                 throw new Exception("Не все параметры I-ой вершины были корректны");
             }
@@ -127,6 +118,18 @@ namespace UI_diplom.FunctionAndGraphicPanels
         }
 
         private void FunctionAcceptButton_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+    internal class FunctionItem
+    {
+        internal OptimizingFunction Function { get; private set; }
+
+        internal LipzitsFunction LipzitsFunction { get; private set; }
+        internal uint MinVarCount { get; private set; }
+        internal uint MaxVarCount { get; private set; }
+        internal FunctionItem(OptimizingFunction func, LipzitsFunction lip, uint minVarCount, uint maxVarCount)
         {
 
         }

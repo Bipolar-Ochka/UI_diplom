@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionAndGraphicPanels\FunctionPanel.cs" />
+    <Compile Include="FunctionAndGraphicPanels\FunctionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="FunctionAndGraphicPanels\FunctionPanel.Designer.cs">
       <DependentUpon>FunctionPanel.cs</DependentUpon>
     </Compile>
