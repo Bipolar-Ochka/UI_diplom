@@ -38,14 +38,16 @@
             this.опцииГрафикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainFormSplitContainer = new System.Windows.Forms.SplitContainer();
             this.subSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.DihtomiaPanel = new UI_diplom.MethodPanels.DihtomiaPanel();
             this.ModMetPanel = new UI_diplom.MethodPanels.ModifiedMethodPanel();
+            this.DihtomiaPanel = new UI_diplom.MethodPanels.DihtomiaPanel();
+            this.functionPanel1 = new UI_diplom.FunctionAndGraphicPanels.FunctionPanel();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormSplitContainer)).BeginInit();
             this.mainFormSplitContainer.Panel1.SuspendLayout();
             this.mainFormSplitContainer.Panel2.SuspendLayout();
             this.mainFormSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subSplitContainer)).BeginInit();
+            this.subSplitContainer.Panel1.SuspendLayout();
             this.subSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,9 +144,21 @@
             this.subSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.subSplitContainer.Name = "subSplitContainer";
             this.subSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // subSplitContainer.Panel1
+            // 
+            this.subSplitContainer.Panel1.Controls.Add(this.functionPanel1);
             this.subSplitContainer.Size = new System.Drawing.Size(396, 426);
-            this.subSplitContainer.SplitterDistance = 210;
+            this.subSplitContainer.SplitterDistance = 213;
             this.subSplitContainer.TabIndex = 0;
+            // 
+            // ModMetPanel
+            // 
+            this.ModMetPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ModMetPanel.Location = new System.Drawing.Point(0, 0);
+            this.ModMetPanel.Name = "ModMetPanel";
+            this.ModMetPanel.Size = new System.Drawing.Size(396, 422);
+            this.ModMetPanel.TabIndex = 1;
             // 
             // DihtomiaPanel
             // 
@@ -154,13 +168,13 @@
             this.DihtomiaPanel.Size = new System.Drawing.Size(396, 422);
             this.DihtomiaPanel.TabIndex = 0;
             // 
-            // ModMetPanel
+            // functionPanel1
             // 
-            this.ModMetPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ModMetPanel.Location = new System.Drawing.Point(0, 0);
-            this.ModMetPanel.Name = "ModMetPanel";
-            this.ModMetPanel.Size = new System.Drawing.Size(396, 422);
-            this.ModMetPanel.TabIndex = 1;
+            this.functionPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.functionPanel1.Location = new System.Drawing.Point(0, 0);
+            this.functionPanel1.Name = "functionPanel1";
+            this.functionPanel1.Size = new System.Drawing.Size(392, 209);
+            this.functionPanel1.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -180,6 +194,7 @@
             this.mainFormSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainFormSplitContainer)).EndInit();
             this.mainFormSplitContainer.ResumeLayout(false);
+            this.subSplitContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.subSplitContainer)).EndInit();
             this.subSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -201,6 +216,7 @@
         private System.Windows.Forms.SplitContainer subSplitContainer;
         private MethodPanels.DihtomiaPanel DihtomiaPanel;
         private MethodPanels.ModifiedMethodPanel ModMetPanel;
+        private FunctionAndGraphicPanels.FunctionPanel functionPanel1;
     }
 }
 
