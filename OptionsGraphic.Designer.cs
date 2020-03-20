@@ -37,6 +37,10 @@
             this.FPSComboBox = new System.Windows.Forms.ComboBox();
             this.AnitialisingComboBox = new System.Windows.Forms.ComboBox();
             this.Save = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.MaxItemCountNumeric = new System.Windows.Forms.NumericUpDown();
+            this.DefaultSettingsButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxItemCountNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // OptionsGraphicLabelResolution
@@ -69,7 +73,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 135);
+            this.label3.Location = new System.Drawing.Point(12, 123);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(159, 13);
             this.label3.TabIndex = 3;
@@ -80,7 +84,7 @@
             this.VSyncCheckBox.AutoSize = true;
             this.VSyncCheckBox.Checked = true;
             this.VSyncCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.VSyncCheckBox.Location = new System.Drawing.Point(210, 135);
+            this.VSyncCheckBox.Location = new System.Drawing.Point(209, 123);
             this.VSyncCheckBox.Name = "VSyncCheckBox";
             this.VSyncCheckBox.Size = new System.Drawing.Size(15, 14);
             this.VSyncCheckBox.TabIndex = 4;
@@ -115,19 +119,63 @@
             // 
             // Save
             // 
-            this.Save.Location = new System.Drawing.Point(16, 166);
+            this.Save.Location = new System.Drawing.Point(143, 204);
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(271, 23);
+            this.Save.Size = new System.Drawing.Size(150, 23);
             this.Save.TabIndex = 8;
             this.Save.Text = "Сохранить изменения";
             this.Save.UseVisualStyleBackColor = true;
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 167);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(181, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Макс. число элементов на экране";
+            // 
+            // MaxItemCountNumeric
+            // 
+            this.MaxItemCountNumeric.Location = new System.Drawing.Point(200, 165);
+            this.MaxItemCountNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.MaxItemCountNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxItemCountNumeric.Name = "MaxItemCountNumeric";
+            this.MaxItemCountNumeric.Size = new System.Drawing.Size(93, 20);
+            this.MaxItemCountNumeric.TabIndex = 10;
+            this.MaxItemCountNumeric.Value = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            // 
+            // DefaultSettingsButton
+            // 
+            this.DefaultSettingsButton.Location = new System.Drawing.Point(15, 204);
+            this.DefaultSettingsButton.Name = "DefaultSettingsButton";
+            this.DefaultSettingsButton.Size = new System.Drawing.Size(118, 23);
+            this.DefaultSettingsButton.TabIndex = 11;
+            this.DefaultSettingsButton.Text = "По умолчанию";
+            this.DefaultSettingsButton.UseVisualStyleBackColor = true;
+            this.DefaultSettingsButton.Click += new System.EventHandler(this.DefaultSettingsButton_Click);
+            // 
             // OptionsGraphic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 207);
+            this.ClientSize = new System.Drawing.Size(299, 239);
+            this.Controls.Add(this.DefaultSettingsButton);
+            this.Controls.Add(this.MaxItemCountNumeric);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Save);
             this.Controls.Add(this.AnitialisingComboBox);
             this.Controls.Add(this.FPSComboBox);
@@ -140,6 +188,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "OptionsGraphic";
             this.Text = "Настройки графики";
+            ((System.ComponentModel.ISupportInitialize)(this.MaxItemCountNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,5 +205,8 @@
         private System.Windows.Forms.ComboBox FPSComboBox;
         private System.Windows.Forms.ComboBox AnitialisingComboBox;
         private System.Windows.Forms.Button Save;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown MaxItemCountNumeric;
+        private System.Windows.Forms.Button DefaultSettingsButton;
     }
 }

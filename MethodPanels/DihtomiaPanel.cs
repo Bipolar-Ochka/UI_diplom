@@ -13,7 +13,7 @@ namespace UI_diplom.MethodPanels
 {
     public partial class DihtomiaPanel : UserControl
     {
-        public delegate bool DihtomiaParamsHandler(double precision, double lipzitsParam, RuleD rule);
+        public delegate void DihtomiaParamsHandler(double precision, double lipzitsParam, RuleD rule);
         public event DihtomiaParamsHandler DihtomiaGetParams;
         ToolTip tip;
         public DihtomiaPanel()
@@ -29,16 +29,23 @@ namespace UI_diplom.MethodPanels
                 new {rule=RuleD.LIFO, str="Последний из списка"},
                 new {rule=RuleD.MINQ, str="С мин. значением миноранты из списка"},
             };
+            DihtomiaRuleValue.DataSource = Rules;
             DihtomiaRuleValue.ValueMember = "rule";
             DihtomiaRuleValue.DisplayMember = "str";
-            DihtomiaRuleValue.DataSource = Rules;
             DihtomiaRuleValue.SelectedItem = 0;
         }
-        internal void getMethodParams()
+        internal void ToDefault()
+        {
+            DihtomiaRuleValue.SelectedItem = 0;
+            DihtomiaPrecisionValue.Value = 0.1m;
+            DihtomiaLipzitsValue.Value = 0.01m;
+            DihtomiaInput.Enabled = true;
+        }
+        void getMethodParams()
         {
             if (Convert.ToDouble(DihtomiaPrecisionValue.Value) > Convert.ToDouble(DihtomiaLipzitsValue.Value))
             {
-                DihtomiaGetParams?.Invoke(Convert.ToDouble(DihtomiaPrecisionValue.Value), Convert.ToDouble(DihtomiaLipzitsValue.Value), (RuleD)DihtomiaRuleValue.SelectedItem);
+                DihtomiaGetParams?.Invoke(Convert.ToDouble(DihtomiaPrecisionValue.Value), Convert.ToDouble(DihtomiaLipzitsValue.Value),(RuleD)DihtomiaRuleValue.SelectedValue);
                 DihtomiaInput.Enabled = false;
             }
             else
@@ -53,15 +60,16 @@ namespace UI_diplom.MethodPanels
 
         private void DihtomiaInput_Click(object sender, EventArgs e)
         {
-            try
-            {
-                getMethodParams();  
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DihtomiaInput.Enabled = true;
-            }
+            getMethodParams();
+            //try
+            //{
+            //    getMethodParams();  
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    DihtomiaInput.Enabled = true;
+            //}
         }
     }
 }

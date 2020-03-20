@@ -12,7 +12,7 @@ namespace UI_diplom
 {
     public partial class OptionsGraphic : Form
     {
-        public delegate void GraphicSettingsHandler(int width, int height, int fps, int anitlvl, bool vsync);
+        public delegate void GraphicSettingsHandler(int width, int height, int fps, int anitlvl, bool vsync, int maxItemCount);
         public event GraphicSettingsHandler ApplySettings;
         public OptionsGraphic()
         {
@@ -24,7 +24,16 @@ namespace UI_diplom
         void setSettings()
         {
             int[] resol = ResolutionComboBox.SelectedItem as int[];
-            ApplySettings?.Invoke(resol[0], resol[1], (int)FPSComboBox.SelectedItem, (int)AnitialisingComboBox.SelectedItem, VSyncCheckBox.Checked);
+            ApplySettings?.Invoke(resol[0], resol[1], (int)FPSComboBox.SelectedItem, (int)AnitialisingComboBox.SelectedItem, VSyncCheckBox.Checked,Convert.ToInt32(MaxItemCountNumeric.Value));
+        }
+        
+        internal void getDefault()
+        {
+            ResolutionComboBox.SelectedIndex = 0;
+            FPSComboBox.SelectedIndex = 1;
+            AnitialisingComboBox.SelectedIndex = 3;
+            VSyncCheckBox.Checked = true;
+            MaxItemCountNumeric.Value = 20000;
         }
 
         void SetupResolutions()
@@ -74,6 +83,11 @@ namespace UI_diplom
         {
             setSettings();
             this.Close();
+        }
+
+        private void DefaultSettingsButton_Click(object sender, EventArgs e)
+        {
+            getDefault();
         }
     }
 }

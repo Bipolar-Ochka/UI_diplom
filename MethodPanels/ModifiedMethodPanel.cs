@@ -13,7 +13,7 @@ namespace UI_diplom.MethodPanels
 {
     public partial class ModifiedMethodPanel : UserControl
     {
-        public delegate bool ModificatedMethodParamsHandler(double precision, double lipzitsParam, RuleM ruleMainList, RuleM ruleSubList);
+        public delegate void ModificatedMethodParamsHandler(double precision, double lipzitsParam, RuleM ruleMainList, RuleM ruleSubList);
         public event ModificatedMethodParamsHandler ModificatedMethodGetParams;
         ToolTip tip;
         public ModifiedMethodPanel()
@@ -28,20 +28,25 @@ namespace UI_diplom.MethodPanels
                 new {rule = RuleM.FIFO, str="Добавление в начало"},
                 new {rule = RuleM.LIFO, str="Добавление в конец"},
             };
+            var Rules2 = new[]
+            {
+                new {rule = RuleM.FIFO, str="Добавление в начало"},
+                new {rule = RuleM.LIFO, str="Добавление в конец"},
+            };
             ModMetRuleMainListValue.ValueMember = "rule";
             ModMetRuleMainListValue.DisplayMember = "str";
             ModMetRuleMainListValue.DataSource = Rules;
             ModMetRuleMainListValue.SelectedIndex = 1;
             ModMetRuleSubListValue.ValueMember = "rule";
             ModMetRuleSubListValue.DisplayMember = "str";
-            ModMetRuleSubListValue.DataSource = Rules;
+            ModMetRuleSubListValue.DataSource = Rules2;
             ModMetRuleSubListValue.SelectedIndex = 0;
         }
-        internal void getMethodParams()
+         void getMethodParams()
         {
             if (Convert.ToDouble(ModMetPrecisionValue.Value) > Convert.ToDouble(ModMetLipzitsValue.Value))
             {
-                ModificatedMethodGetParams?.Invoke(Convert.ToDouble(ModMetPrecisionValue.Value), Convert.ToDouble(ModMetLipzitsValue.Value), (RuleM)ModMetRuleMainListValue.SelectedItem,(RuleM)ModMetRuleSubListValue.SelectedItem);
+                ModificatedMethodGetParams?.Invoke(Convert.ToDouble(ModMetPrecisionValue.Value), Convert.ToDouble(ModMetLipzitsValue.Value), (RuleM)ModMetRuleMainListValue.SelectedValue,(RuleM)ModMetRuleSubListValue.SelectedValue);
                 ModMetInput.Enabled = false;
             }
             else
@@ -52,6 +57,14 @@ namespace UI_diplom.MethodPanels
                 }
                 tip.Show("Параметр константы липшица должен быть меньше чем точность", ModMetLipzitsValue, ModMetLipzitsValue.Size.Width, ModMetLipzitsValue.Size.Height, 3000);
             }
+        }
+        internal void ToDefault()
+        {
+            ModMetPrecisionValue.Value = 0.1m;
+            ModMetLipzitsValue.Value = 0.01m;
+            ModMetRuleMainListValue.SelectedIndex = 1;
+            ModMetRuleSubListValue.SelectedIndex = 0;
+            ModMetInput.Enabled = true;
         }
 
         private void ModMetInput_Click(object sender, EventArgs e)

@@ -14,7 +14,7 @@ namespace UI_diplom.FunctionAndGraphicPanels
     
     public partial class FunctionPanel : UserControl
     {
-        public delegate bool FunctionParamsHandler(OptimizingFunction func, LipzitsFunction lipz, List<double> lowerBound, List<double> upperBound);
+        public delegate void FunctionParamsHandler(OptimizingFunction func, LipzitsFunction lipz, List<double> lowerBound, List<double> upperBound);
         public event FunctionParamsHandler FunctionGetParams;
         public FunctionPanel()
         {
@@ -75,6 +75,16 @@ namespace UI_diplom.FunctionAndGraphicPanels
                 }
             }
         }
+        internal void ToDefault()
+        {
+            FunctionListComboBox.SelectedIndex = 0;
+            var temp = FunctionListComboBox.SelectedItem as FunctionItem;
+            VarsCountNumeric.Minimum = temp.MinVarCount;
+            VarsCountNumeric.Maximum = temp.MaxVarCount;
+            FunctionLowBoundTextBox.Clear();
+            FunctionUpBoundTextBox.Clear();
+            FunctionAcceptButton.Enabled = true;
+        }
 
         private void FunctionUpBoundTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -110,7 +120,7 @@ namespace UI_diplom.FunctionAndGraphicPanels
             {
                 throw new Exception("Не хватает параметров для I-ой вершины параллелепипеда");
             }
-            var rawUpBound = FunctionLowBoundTextBox.Text.Split(' ');
+            var rawUpBound = FunctionUpBoundTextBox.Text.Split(' ');
             if (rawLowBound.Length < variablesCount)
             {
                 throw new Exception("Не хватает параметров для II-ой вершины параллелепипеда");
@@ -136,6 +146,7 @@ namespace UI_diplom.FunctionAndGraphicPanels
                 var temp = FunctionListComboBox.SelectedItem as FunctionItem;
                 var lists = getFunctionParams();
                 FunctionGetParams?.Invoke(temp.Function, temp.LipzitsFunction, lists.low,lists.up);
+                FunctionAcceptButton.Enabled = false;
             }
             catch(Exception ex)
             {
