@@ -13,7 +13,7 @@ namespace UI_diplom.MethodPanels
 {
     public partial class DihtomiaPanel : UserControl
     {
-        public delegate void DihtomiaParamsHandler(double precision, double lipzitsParam, RuleD rule);
+        public delegate bool DihtomiaParamsHandler(double precision, double lipzitsParam, RuleD rule);
         public event DihtomiaParamsHandler DihtomiaGetParams;
         ToolTip tip;
         public DihtomiaPanel()
@@ -53,7 +53,15 @@ namespace UI_diplom.MethodPanels
 
         private void DihtomiaInput_Click(object sender, EventArgs e)
         {
-            getMethodParams();
+            try
+            {
+                getMethodParams();  
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DihtomiaInput.Enabled = true;
+            }
         }
     }
 }

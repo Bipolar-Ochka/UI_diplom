@@ -13,7 +13,7 @@ namespace UI_diplom.MethodPanels
 {
     public partial class ModifiedMethodPanel : UserControl
     {
-        public delegate void ModificatedMethodParamsHandler(double precision, double lipzitsParam, RuleM ruleMainList, RuleM ruleSubList);
+        public delegate bool ModificatedMethodParamsHandler(double precision, double lipzitsParam, RuleM ruleMainList, RuleM ruleSubList);
         public event ModificatedMethodParamsHandler ModificatedMethodGetParams;
         ToolTip tip;
         public ModifiedMethodPanel()
@@ -56,7 +56,14 @@ namespace UI_diplom.MethodPanels
 
         private void ModMetInput_Click(object sender, EventArgs e)
         {
-            getMethodParams();
+            try
+            {
+                getMethodParams();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ModMetInput.Enabled = true;
+            }
         }
     }
 }

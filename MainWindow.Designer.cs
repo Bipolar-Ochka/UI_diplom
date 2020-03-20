@@ -41,6 +41,7 @@
             this.ModMetPanel = new UI_diplom.MethodPanels.ModifiedMethodPanel();
             this.DihtomiaPanel = new UI_diplom.MethodPanels.DihtomiaPanel();
             this.functionPanel1 = new UI_diplom.FunctionAndGraphicPanels.FunctionPanel();
+            this.solutionPanel1 = new UI_diplom.FunctionAndGraphicPanels.SolutionPanel();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormSplitContainer)).BeginInit();
             this.mainFormSplitContainer.Panel1.SuspendLayout();
@@ -48,6 +49,7 @@
             this.mainFormSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subSplitContainer)).BeginInit();
             this.subSplitContainer.Panel1.SuspendLayout();
+            this.subSplitContainer.Panel2.SuspendLayout();
             this.subSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,6 +150,10 @@
             // subSplitContainer.Panel1
             // 
             this.subSplitContainer.Panel1.Controls.Add(this.functionPanel1);
+            // 
+            // subSplitContainer.Panel2
+            // 
+            this.subSplitContainer.Panel2.Controls.Add(this.solutionPanel1);
             this.subSplitContainer.Size = new System.Drawing.Size(396, 426);
             this.subSplitContainer.SplitterDistance = 213;
             this.subSplitContainer.TabIndex = 0;
@@ -176,6 +182,14 @@
             this.functionPanel1.Size = new System.Drawing.Size(392, 209);
             this.functionPanel1.TabIndex = 0;
             // 
+            // solutionPanel1
+            // 
+            this.solutionPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.solutionPanel1.Location = new System.Drawing.Point(0, 0);
+            this.solutionPanel1.Name = "solutionPanel1";
+            this.solutionPanel1.Size = new System.Drawing.Size(392, 205);
+            this.solutionPanel1.TabIndex = 0;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,6 +209,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainFormSplitContainer)).EndInit();
             this.mainFormSplitContainer.ResumeLayout(false);
             this.subSplitContainer.Panel1.ResumeLayout(false);
+            this.subSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.subSplitContainer)).EndInit();
             this.subSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -217,6 +232,7 @@
         private MethodPanels.DihtomiaPanel DihtomiaPanel;
         private MethodPanels.ModifiedMethodPanel ModMetPanel;
         private FunctionAndGraphicPanels.FunctionPanel functionPanel1;
+        private FunctionAndGraphicPanels.SolutionPanel solutionPanel1;
     }
 }
 

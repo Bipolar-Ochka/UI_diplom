@@ -14,15 +14,18 @@ namespace UI_diplom.FunctionAndGraphicPanels
     
     public partial class FunctionPanel : UserControl
     {
-        public delegate void FunctionParamsHandler(OptimizingFunction func, LipzitsFunction lipz, List<double> lowerBound, List<double> upperBound);
+        public delegate bool FunctionParamsHandler(OptimizingFunction func, LipzitsFunction lipz, List<double> lowerBound, List<double> upperBound);
         public event FunctionParamsHandler FunctionGetParams;
         public FunctionPanel()
         {
             InitializeComponent();
+            SetupFunctions();
         }
 
         void SetupFunctions()
         {
+            uint minVars = 2;
+            uint maxVars = 10;
             OptimizingFunction firstFunc = (List<double> vars) =>
             {
                 double pow = vars.Select(x => Math.Abs(x)).Sum();
@@ -35,6 +38,14 @@ namespace UI_diplom.FunctionAndGraphicPanels
             };
             LipzitsFunction first = (double epsilon) => 25 / epsilon;
             LipzitsFunction second = (double epsilon) => 25 / epsilon - 2 * Math.PI * Math.E;
+            List<FunctionItem> items = new List<FunctionItem>(2)
+            {
+                new FunctionItem(firstFunc,first,minVars,maxVars,"-10 * Math.Exp(-Math.Sqrt(pow / vars.Count))"),
+                new FunctionItem(secondFunc,second,minVars,maxVars,"... - Math.Exp(pow2 / vars.Count)"),
+            };
+            FunctionListComboBox.DisplayMember = "Name";
+            FunctionListComboBox.DataSource = items;
+            FunctionListComboBox.SelectedIndex = 0;
 
         }
 
@@ -91,7 +102,7 @@ namespace UI_diplom.FunctionAndGraphicPanels
                 }
             }
         }
-        void getFunctionParams()
+        (List<double> low, List<double> up) getFunctionParams()
         {
             int variablesCount = Convert.ToInt32(VarsCountNumeric.Value);
             var rawLowBound = FunctionLowBoundTextBox.Text.Split(' ');
@@ -115,11 +126,29 @@ namespace UI_diplom.FunctionAndGraphicPanels
             {
                 throw new Exception("Не все параметры II-ой вершины были корректны");
             }
+            return (lowBound, upBound);
         }
 
         private void FunctionAcceptButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                var temp = FunctionListComboBox.SelectedItem as FunctionItem;
+                var lists = getFunctionParams();
+                FunctionGetParams?.Invoke(temp.Function, temp.LipzitsFunction, lists.low,lists.up);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FunctionAcceptButton.Enabled = true;
+            }
+        }
 
+        private void FunctionListComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var temp = FunctionListComboBox.SelectedItem as FunctionItem;
+            VarsCountNumeric.Minimum = temp.MinVarCount;
+            VarsCountNumeric.Maximum = temp.MaxVarCount;
         }
     }
     internal class FunctionItem
@@ -129,9 +158,15 @@ namespace UI_diplom.FunctionAndGraphicPanels
         internal LipzitsFunction LipzitsFunction { get; private set; }
         internal uint MinVarCount { get; private set; }
         internal uint MaxVarCount { get; private set; }
-        internal FunctionItem(OptimizingFunction func, LipzitsFunction lip, uint minVarCount, uint maxVarCount)
-        {
+        public string Name { get; }
 
+        internal FunctionItem(OptimizingFunction Function, LipzitsFunction LipzitsFunction, uint MinVarCount, uint MaxVarCount, string Name)
+        {
+            this.Function = Function;
+            this.LipzitsFunction = LipzitsFunction;
+            this.MinVarCount = MinVarCount;
+            this.MaxVarCount = MaxVarCount;
+            this.Name = Name;
         }
     }
 }

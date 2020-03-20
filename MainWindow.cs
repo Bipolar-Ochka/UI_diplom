@@ -20,7 +20,7 @@ namespace UI_diplom
             InitializeComponent();
             ModMetPanel.Visible = false;
             мНПНаОсновеДихтомииToolStripMenuItem.Enabled = false;
-            isDihtomiaCurrentMethod = true;
+            this.isDihtomiaCurrentMethod = true;
         }
 
         private void опцииГрафикиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -40,14 +40,14 @@ namespace UI_diplom
         {
             Application.Exit();
         }
-
+        #region OPTIONS_METHOD_CHOOSE
         private void мНПНаОсновеДихтомииToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DihtomiaPanel.Visible = true;
             ModMetPanel.Visible = false;
             мНПНаОсновеДихтомииToolStripMenuItem.Enabled = false;
             мНПМодификацияНКАToolStripMenuItem.Enabled = true;
-            isDihtomiaCurrentMethod = true;
+            this.isDihtomiaCurrentMethod = true;
         }
 
         private void мНПМодификацияНКАToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,7 +56,10 @@ namespace UI_diplom
             ModMetPanel.Visible = true;
             мНПНаОсновеДихтомииToolStripMenuItem.Enabled = true;
             мНПМодификацияНКАToolStripMenuItem.Enabled = false;
-            isDihtomiaCurrentMethod = false;
+            this.isDihtomiaCurrentMethod = false;
         }
+        #endregion
+
+
     }
 }

@@ -146,7 +146,7 @@
             // 
             // DihtomiaInput
             // 
-            this.DihtomiaInput.Location = new System.Drawing.Point(11, 247);
+            this.DihtomiaInput.Location = new System.Drawing.Point(11, 358);
             this.DihtomiaInput.Name = "DihtomiaInput";
             this.DihtomiaInput.Size = new System.Drawing.Size(377, 56);
             this.DihtomiaInput.TabIndex = 8;

@@ -56,6 +56,12 @@
     <Compile Include="FunctionAndGraphicPanels\FunctionPanel.Designer.cs">
       <DependentUpon>FunctionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="FunctionAndGraphicPanels\SolutionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FunctionAndGraphicPanels\SolutionPanel.Designer.cs">
+      <DependentUpon>SolutionPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FunctionAndGraphicPanels\FunctionPanel.resx">
       <DependentUpon>FunctionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FunctionAndGraphicPanels\SolutionPanel.resx">
+      <DependentUpon>SolutionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

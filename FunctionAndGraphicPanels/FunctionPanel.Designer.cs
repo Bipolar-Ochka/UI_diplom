@@ -55,21 +55,22 @@
             // 
             this.FunctionListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FunctionListComboBox.FormattingEnabled = true;
-            this.FunctionListComboBox.Location = new System.Drawing.Point(272, 10);
+            this.FunctionListComboBox.Location = new System.Drawing.Point(7, 35);
             this.FunctionListComboBox.Name = "FunctionListComboBox";
-            this.FunctionListComboBox.Size = new System.Drawing.Size(109, 21);
+            this.FunctionListComboBox.Size = new System.Drawing.Size(242, 21);
             this.FunctionListComboBox.TabIndex = 1;
+            this.FunctionListComboBox.SelectionChangeCommitted += new System.EventHandler(this.FunctionListComboBox_SelectionChangeCommitted);
             // 
             // VarsCountNumeric
             // 
-            this.VarsCountNumeric.Location = new System.Drawing.Point(272, 74);
+            this.VarsCountNumeric.Location = new System.Drawing.Point(268, 54);
             this.VarsCountNumeric.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.VarsCountNumeric.Minimum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -77,7 +78,7 @@
             this.VarsCountNumeric.Size = new System.Drawing.Size(109, 20);
             this.VarsCountNumeric.TabIndex = 2;
             this.VarsCountNumeric.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -85,7 +86,7 @@
             // FunctionVarsNumberTitle
             // 
             this.FunctionVarsNumberTitle.AutoSize = true;
-            this.FunctionVarsNumberTitle.Location = new System.Drawing.Point(272, 55);
+            this.FunctionVarsNumberTitle.Location = new System.Drawing.Point(268, 35);
             this.FunctionVarsNumberTitle.Name = "FunctionVarsNumberTitle";
             this.FunctionVarsNumberTitle.Size = new System.Drawing.Size(113, 13);
             this.FunctionVarsNumberTitle.TabIndex = 3;
