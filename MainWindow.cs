@@ -11,6 +11,8 @@ using System.Runtime.InteropServices;
 using static MultiDimensionOptimization.MDO;
 using MultiDimensionOptimization.MNPDihtomia;
 using MultiDimensionOptimization.MNPModificated;
+using GraphicAddon;
+using System.Diagnostics;
 
 namespace UI_diplom
 {
@@ -23,6 +25,15 @@ namespace UI_diplom
         bool isNeedGraphic;
         bool isWorkNotStarted;
         MethodSettings currentMethodSettings;
+        GraphicWindow graphic;
+        uint graphicWindowHeight;
+        uint graphicWindowWidth;
+        uint graphicWindowFPS;
+        bool graphicWindowVsync;
+        uint graphicWindowAnit;
+        uint rectangleLimit;
+        int graphicFirstDimension=0;
+        int graphicSecondDimension=1;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +44,10 @@ namespace UI_diplom
             SetupDihtomiaParams();
             SetupModMetParams();
             SetupFunctionParams();
+            SetupDefaultSettingsGraphic();
+            //SetupGraphicParams();
+            SetupReset();
+            SetupSolutionParams();
         }
         void ResetBools()
         {
@@ -41,6 +56,9 @@ namespace UI_diplom
             this.isNeedGraphic = false;
             this.isWorkNotStarted = true;
             currentMethodSettings = null;
+            graphic = null;
+            DihtomiaPanel.Enabled = true;
+            ModMetPanel.Enabled = true;
         }
         void SetupDihtomiaParams()
         {
@@ -128,17 +146,109 @@ namespace UI_diplom
             }
         }
 
-        void SetupSolutionParams()
+         void SetupSolutionParams()
         {
             SolutionPanel.SolveButtonHandler = solution;
             void solution(bool isGraphic)
             {
-
+                GraphicSettings settings = null;
+                if(isMethodParams && isFuncParams)
+                {
+                    if (isGraphic)
+                    {
+                        graphic = new GraphicWindow(graphicWindowHeight, graphicWindowWidth, graphicWindowFPS, graphicWindowVsync, graphicWindowAnit);
+                        graphic.SetRectangleLimit(rectangleLimit);
+                        RectangleHandler handler = new RectangleHandler(graphic.GetRectangleFromMethod);
+                        settings = new GraphicSettings(handler,graphicFirstDimension,graphicSecondDimension);
+                        graphic?.Window.SetActive(false);
+                    }
+                    if (isDihtomiaCurrentMethod)
+                    {
+                        var method = currentMethodSettings as DihtomiaParams;
+                        double funcMin = 0;
+                        int counter = 0;
+                        int optimal = 0;
+                        Task.Run(() =>
+                        {
+                            var solve = MNPD.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.Rule, settings);
+                            funcMin = solve.FunctionMinimum;
+                            counter = solve.counter;
+                            optimal = solve.optimal;
+                            this.Invoke(new Action(() =>
+                            {
+                                SolutionPanel.PrintTextInLogs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
+                            }
+                            ));
+                            graphic?.Window.SetActive(true);
+                            graphic?.ShowWindow();
+                            Trace.WriteLine("end of task");
+                            //graphic?.Window.SetActive(false);
+                        });
+                    }
+                    else
+                    {
+                        var method = currentMethodSettings as ModificatedParams;
+                        double funcMin = 0;
+                        int counter = 0;
+                        int optimal = 0;
+                        Task.Run(() => 
+                        { 
+                            var solve = MNPANK.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.SubRule,method.MainRule, settings);
+                            funcMin = solve.FunctionMinimum;
+                            counter = solve.counter;
+                            optimal = solve.optimal;
+                            this.Invoke(new Action(() =>
+                            {
+                                SolutionPanel.PrintTextInLogs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
+                            }
+                            ));
+                            graphic?.Window.SetActive(true);
+                            graphic?.ShowWindow();
+                            Trace.WriteLine("end of task");
+                            //graphic?.Window.SetActive(false);
+                        });
+                    }
+                }
+                //graphic?.Window.SetActive(true);
+                GC.Collect();
             }
         }
+
         void SetupGraphicParams()
         {
+            this.optionsGraphic.ApplySettings += OptionsGraphic_ApplySettings;
+            void OptionsGraphic_ApplySettings(int width, int height, int fps, int anitlvl, bool vsync, int maxItemCount)
+            {
+                this.graphicWindowWidth = (uint)width;
+                this.graphicWindowHeight = (uint)height;
+                this.graphicWindowFPS = (uint)fps;
+                this.graphicWindowAnit = (uint)anitlvl;
+                this.graphicWindowVsync = vsync;
+                this.rectangleLimit = (uint)maxItemCount;
+                graphic?.ChangeWindowSettings(graphicWindowWidth, graphicWindowHeight, graphicWindowAnit, graphicWindowFPS, graphicWindowVsync, (int)rectangleLimit);
+            }
+        }
 
+        void SetupReset()
+        {
+            SolutionPanel.GraphicButtonHandler = resetdelegate;
+            void resetdelegate()
+            {
+                ResetBools();
+                DihtomiaPanel.ToDefault();
+                ModMetPanel.ToDefault();
+                FunctionPanel.ToDefault();
+            }
+        }
+
+        void SetupDefaultSettingsGraphic()
+        {
+            this.graphicWindowWidth = 800;
+            this.graphicWindowHeight = 600;
+            this.graphicWindowFPS = 25;
+            this.graphicWindowVsync = true;
+            this.graphicWindowAnit = 4;
+            this.rectangleLimit = 50000;
         }
 
         private void опцииГрафикиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -146,6 +256,7 @@ namespace UI_diplom
             if(optionsGraphic == null || optionsGraphic.IsDisposed)
             {
                 optionsGraphic = new OptionsGraphic();
+                SetupGraphicParams();
                 optionsGraphic.Show();
             }
             else

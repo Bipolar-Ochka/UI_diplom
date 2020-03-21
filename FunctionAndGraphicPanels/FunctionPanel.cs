@@ -81,8 +81,8 @@ namespace UI_diplom.FunctionAndGraphicPanels
             var temp = FunctionListComboBox.SelectedItem as FunctionItem;
             VarsCountNumeric.Minimum = temp.MinVarCount;
             VarsCountNumeric.Maximum = temp.MaxVarCount;
-            FunctionLowBoundTextBox.Clear();
-            FunctionUpBoundTextBox.Clear();
+            //FunctionLowBoundTextBox.Clear();
+            //FunctionUpBoundTextBox.Clear();
             FunctionAcceptButton.Enabled = true;
         }
 

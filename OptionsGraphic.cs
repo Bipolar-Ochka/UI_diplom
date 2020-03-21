@@ -23,8 +23,8 @@ namespace UI_diplom
         }
         void setSettings()
         {
-            int[] resol = ResolutionComboBox.SelectedItem as int[];
-            ApplySettings?.Invoke(resol[0], resol[1], (int)FPSComboBox.SelectedItem, (int)AnitialisingComboBox.SelectedItem, VSyncCheckBox.Checked,Convert.ToInt32(MaxItemCountNumeric.Value));
+            int[] resol = ResolutionComboBox.SelectedValue as int[];
+            ApplySettings?.Invoke(resol[0], resol[1], (int)FPSComboBox.SelectedValue, (int)AnitialisingComboBox.SelectedValue, VSyncCheckBox.Checked,Convert.ToInt32(MaxItemCountNumeric.Value));
         }
         
         internal void getDefault()
