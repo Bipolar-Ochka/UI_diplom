@@ -22,7 +22,7 @@ namespace UI_diplom
         bool isDihtomiaCurrentMethod;
         bool isMethodParams;
         bool isFuncParams;
-        bool isNeedGraphic;
+        bool isCalculating;
         bool isWorkNotStarted;
         MethodSettings currentMethodSettings;
         GraphicWindow graphic;
@@ -53,7 +53,7 @@ namespace UI_diplom
         {
             this.isMethodParams = false;
             this.isFuncParams = false;
-            this.isNeedGraphic = false;
+            this.isCalculating = false;
             this.isWorkNotStarted = true;
             currentMethodSettings = null;
             graphic = null;
@@ -159,6 +159,7 @@ namespace UI_diplom
                         graphic = new GraphicWindow(graphicWindowHeight, graphicWindowWidth, graphicWindowFPS, graphicWindowVsync, graphicWindowAnit);
                         graphic.SetRectangleLimit(rectangleLimit);
                         RectangleHandler handler = new RectangleHandler(graphic.GetRectangleFromMethod);
+                        //TODO: fix dimensions
                         settings = new GraphicSettings(handler,graphicFirstDimension,graphicSecondDimension);
                         graphic?.Window.SetActive(false);
                     }
@@ -170,6 +171,7 @@ namespace UI_diplom
                         int optimal = 0;
                         Task.Run(() =>
                         {
+                            this.isCalculating = true;
                             var solve = MNPD.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.Rule, settings);
                             funcMin = solve.FunctionMinimum;
                             counter = solve.counter;
@@ -177,12 +179,18 @@ namespace UI_diplom
                             this.Invoke(new Action(() =>
                             {
                                 SolutionPanel.PrintTextInLogs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
+                                graphic?.ShowWindow();
+                                SolutionPanel.button1.Enabled = false;
                             }
                             ));
-                            graphic?.Window.SetActive(true);
-                            graphic?.ShowWindow();
                             Trace.WriteLine("end of task");
-                            //graphic?.Window.SetActive(false);
+                        }).ContinueWith((taskRes)=> {
+                            this.Invoke(new Action(() =>
+                            {
+                                SolutionPanel.button1.Enabled = true;
+                            }));
+                            //TODO: NORMAL RESET
+                            this.isCalculating = false;
                         });
                     }
                     else

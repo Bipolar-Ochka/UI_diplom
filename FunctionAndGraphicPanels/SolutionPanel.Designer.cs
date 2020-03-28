@@ -118,8 +118,8 @@
         private System.Windows.Forms.RichTextBox SolutionLogs;
         private System.Windows.Forms.Button SolutionFinalButton;
         private System.Windows.Forms.Label SolutionLogLabel;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.CheckBox SolutionIsGraphBox;
+        internal System.Windows.Forms.Button button1;
     }
 }
