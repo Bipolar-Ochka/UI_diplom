@@ -19,12 +19,14 @@ namespace UI_diplom.FunctionAndGraphicPanels
         public SolutionPanel()
         {
             InitializeComponent();
-            //ToDefault();
+            ToDefault();
         }
-        //internal void ToDefault()
-        //{
-        //    button1.Enabled = false;
-        //}
+        internal void ToDefault()
+        {
+            firstVar.Enabled = false;
+            secondVar.Enabled = false;
+            SolutionFinalButton.Enabled = false;
+        }
         internal void PrintTextInLogs(string text)
         {
             if (!string.IsNullOrWhiteSpace(SolutionLogs.Text))
@@ -41,10 +43,7 @@ namespace UI_diplom.FunctionAndGraphicPanels
         private void SolutionFinalButton_Click(object sender, EventArgs e)
         {
             SolveButtonHandler?.Invoke(SolutionIsGraphBox.Checked);
-            //if (SolutionIsGraphBox.Checked)
-            //{
-            //    button1.Enabled = true;
-            //}
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -80,6 +80,21 @@ namespace UI_diplom
                 ((DihtomiaParams)currentMethodSettings).Rule = rule;
                 SolutionPanel.PrintTextInLogs($"Точность метода={precision} \nПараметр константы Липшица={lipzitsParam} \nПравило выбора параллелограмма={rule.ToString()}");
                 this.isMethodParams = true;
+                AllReady();
+            }
+        }
+        void AllReady()
+        {
+            if (isMethodParams && isFuncParams)
+            {
+                SolutionPanel.SolutionFinalButton.Enabled = true;
+                SolutionPanel.firstVar.Enabled = true;
+                SolutionPanel.secondVar.Enabled = true;
+                int vars = currentMethodSettings.LowerPoint.Count-1;
+                SolutionPanel.firstVar.Maximum = vars;
+                SolutionPanel.secondVar.Maximum = vars;
+                SolutionPanel.firstVar.Value = 0;
+                SolutionPanel.secondVar.Value = Math.Min((int)SolutionPanel.firstVar.Value + 1,(int) SolutionPanel.secondVar.Maximum);
             }
         }
 
@@ -104,6 +119,7 @@ namespace UI_diplom
                 ((ModificatedParams)currentMethodSettings).SubRule = ruleSubList;
                 SolutionPanel.PrintTextInLogs($"Точность метода={precision} \nПараметр константы Липшица={lipzitsParam} \nПравило добавления в основной список={ruleMainList.ToString()}\nПравило добавления в подсписок={ruleSubList.ToString()}");
                 this.isMethodParams = true;
+                AllReady();
             }
         }
 
@@ -143,6 +159,7 @@ namespace UI_diplom
                 currentMethodSettings.UpperPoint = upperBound;
                 SolutionPanel.PrintTextInLogs($"Первая точка начальной области-[{string.Join(", ",lowerBound)}] \nВторая-[{string.Join(", ", upperBound)}]");
                 this.isFuncParams = true;
+                AllReady();
             }
         }
 
@@ -156,6 +173,8 @@ namespace UI_diplom
                 {
                     if (isGraphic)
                     {
+                        this.graphicFirstDimension = (int)SolutionPanel.firstVar.Value;
+                        this.graphicSecondDimension = ((int)SolutionPanel.secondVar.Value != graphicFirstDimension) ? (int)SolutionPanel.secondVar.Value : ((int)SolutionPanel.secondVar.Value != (int)SolutionPanel.secondVar.Maximum) ? Math.Min(this.graphicFirstDimension + 1, (int)SolutionPanel.secondVar.Maximum): this.graphicFirstDimension-1;
                         graphic = new GraphicWindow(graphicWindowHeight, graphicWindowWidth, graphicWindowFPS, graphicWindowVsync, graphicWindowAnit);
                         graphic.SetRectangleLimit(rectangleLimit);
                         RectangleHandler handler = new RectangleHandler(graphic.GetRectangleFromMethod);
@@ -184,7 +203,8 @@ namespace UI_diplom
                             }
                             ));
                             Trace.WriteLine("end of task");
-                        }).ContinueWith((taskRes)=> {
+                        }).ContinueWith((taskRes) =>
+                        {
                             this.Invoke(new Action(() =>
                             {
                                 SolutionPanel.button1.Enabled = true;
@@ -199,9 +219,9 @@ namespace UI_diplom
                         double funcMin = 0;
                         int counter = 0;
                         int optimal = 0;
-                        Task.Run(() => 
-                        { 
-                            var solve = MNPANK.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.SubRule,method.MainRule, settings);
+                        Task.Run(() =>
+                        {
+                            var solve = MNPANK.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.SubRule, method.MainRule, settings);
                             funcMin = solve.FunctionMinimum;
                             counter = solve.counter;
                             optimal = solve.optimal;
@@ -213,11 +233,15 @@ namespace UI_diplom
                             graphic?.Window.SetActive(true);
                             graphic?.ShowWindow();
                             Trace.WriteLine("end of task");
-                            //graphic?.Window.SetActive(false);
+                        }).ContinueWith((taskRes) =>
+                        {
+                            this.Invoke(new Action(() =>
+                            {
+                                SolutionPanel.button1.Enabled = true;
+                            }));
                         });
                     }
                 }
-                //graphic?.Window.SetActive(true);
                 GC.Collect();
             }
         }
@@ -246,6 +270,7 @@ namespace UI_diplom
                 DihtomiaPanel.ToDefault();
                 ModMetPanel.ToDefault();
                 FunctionPanel.ToDefault();
+                SolutionPanel.ToDefault();
             }
         }
 
