@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace UI_diplom.FunctionAndGraphicPanels
@@ -38,6 +39,13 @@ namespace UI_diplom.FunctionAndGraphicPanels
                 SolutionLogs.AppendText(text);
             }
             SolutionLogs.ScrollToCaret();
+        }
+        internal void PrintTextInFile(string text)
+        {
+            using(StreamWriter sw = File.AppendText("logs.txt"))
+            {
+                sw.WriteLine(text);
+            }
         }
 
         private void SolutionFinalButton_Click(object sender, EventArgs e)

@@ -23,6 +23,7 @@ namespace UI_diplom
         bool isMethodParams;
         bool isFuncParams;
         bool isCalculating;
+        bool isLogsNeed;
         bool isWorkNotStarted;
         MethodSettings currentMethodSettings;
         GraphicWindow graphic;
@@ -45,7 +46,7 @@ namespace UI_diplom
             SetupModMetParams();
             SetupFunctionParams();
             SetupDefaultSettingsGraphic();
-            //SetupGraphicParams();
+            Logging();
             SetupReset();
             SetupSolutionParams();
         }
@@ -54,6 +55,7 @@ namespace UI_diplom
             this.isMethodParams = false;
             this.isFuncParams = false;
             this.isCalculating = false;
+            this.isLogsNeed = true;
             this.isWorkNotStarted = true;
             currentMethodSettings = null;
             graphic = null;
@@ -68,7 +70,7 @@ namespace UI_diplom
                 if (isWorkNotStarted)
                 {
                     isWorkNotStarted = false;
-                    SolutionPanel.PrintTextInLogs("Метод неравномерных покрытий использующий принцип дихтомии");
+                    Logs("Метод неравномерных покрытий использующий принцип дихтомии");
                     ModMetPanel.Enabled = false;
                 }                
                 if(currentMethodSettings == null)
@@ -78,7 +80,7 @@ namespace UI_diplom
                 currentMethodSettings.Precision = precision;
                 currentMethodSettings.LipzitsParametr = lipzitsParam;
                 ((DihtomiaParams)currentMethodSettings).Rule = rule;
-                SolutionPanel.PrintTextInLogs($"Точность метода={precision} \nПараметр константы Липшица={lipzitsParam} \nПравило выбора параллелограмма={rule.ToString()}");
+                Logs($"Точность метода={precision} \nПараметр константы Липшица={lipzitsParam} \nПравило выбора параллелограмма={rule.ToString()}");
                 this.isMethodParams = true;
                 AllReady();
             }
@@ -97,6 +99,15 @@ namespace UI_diplom
                 SolutionPanel.secondVar.Value = Math.Min((int)SolutionPanel.firstVar.Value + 1,(int) SolutionPanel.secondVar.Maximum);
             }
         }
+        void Logging()
+        {
+            SolutionPanel.LogsBox.CheckedChanged += LogsBox_CheckedChanged;
+            void LogsBox_CheckedChanged(object sender, EventArgs e)
+            {
+                this.isLogsNeed = ((CheckBox)sender).Checked;
+            }
+        }
+
 
         void SetupModMetParams()
         {
@@ -106,7 +117,7 @@ namespace UI_diplom
                 if (isWorkNotStarted)
                 {
                     isWorkNotStarted = false;
-                    SolutionPanel.PrintTextInLogs("Метод неравномерных покрытий модификация Н.К.Арутюновой");
+                    Logs("Метод неравномерных покрытий модификация Н.К.Арутюновой");
                     DihtomiaPanel.Enabled = false;
                 }
                 if (currentMethodSettings == null)
@@ -117,7 +128,7 @@ namespace UI_diplom
                 currentMethodSettings.LipzitsParametr = lipzitsParam;
                 ((ModificatedParams)currentMethodSettings).MainRule = ruleMainList;
                 ((ModificatedParams)currentMethodSettings).SubRule = ruleSubList;
-                SolutionPanel.PrintTextInLogs($"Точность метода={precision} \nПараметр константы Липшица={lipzitsParam} \nПравило добавления в основной список={ruleMainList.ToString()}\nПравило добавления в подсписок={ruleSubList.ToString()}");
+                Logs($"Точность метода={precision} \nПараметр константы Липшица={lipzitsParam} \nПравило добавления в основной список={ruleMainList.ToString()}\nПравило добавления в подсписок={ruleSubList.ToString()}");
                 this.isMethodParams = true;
                 AllReady();
             }
@@ -157,7 +168,7 @@ namespace UI_diplom
                 currentMethodSettings.Lipzits = lipz;
                 currentMethodSettings.LowerPoint = lowerBound;
                 currentMethodSettings.UpperPoint = upperBound;
-                SolutionPanel.PrintTextInLogs($"Первая точка начальной области-[{string.Join(", ",lowerBound)}] \nВторая-[{string.Join(", ", upperBound)}]");
+                Logs($"Первая точка начальной области-[{string.Join(", ",lowerBound)}] \nВторая-[{string.Join(", ", upperBound)}]");
                 this.isFuncParams = true;
                 AllReady();
             }
@@ -197,7 +208,7 @@ namespace UI_diplom
                             optimal = solve.optimal;
                             this.Invoke(new Action(() =>
                             {
-                                SolutionPanel.PrintTextInLogs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
+                                Logs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
                                 graphic?.ShowWindow();
                                 SolutionPanel.button1.Enabled = false;
                             }
@@ -227,7 +238,7 @@ namespace UI_diplom
                             optimal = solve.optimal;
                             this.Invoke(new Action(() =>
                             {
-                                SolutionPanel.PrintTextInLogs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
+                                Logs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
                             }
                             ));
                             graphic?.Window.SetActive(true);
@@ -245,7 +256,14 @@ namespace UI_diplom
                 GC.Collect();
             }
         }
-
+        void Logs(string text)
+        {
+            SolutionPanel.PrintTextInLogs(text);
+            if (isLogsNeed)
+            {
+                SolutionPanel.PrintTextInFile(text);
+            }
+        }
         void SetupGraphicParams()
         {
             this.optionsGraphic.ApplySettings += OptionsGraphic_ApplySettings;

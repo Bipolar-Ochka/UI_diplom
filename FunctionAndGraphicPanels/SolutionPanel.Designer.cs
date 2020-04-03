@@ -39,6 +39,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.secondVar = new System.Windows.Forms.NumericUpDown();
+            this.LogsBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.firstVar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.secondVar)).BeginInit();
             this.SuspendLayout();
@@ -163,10 +164,24 @@
             0,
             0});
             // 
+            // LogsBox
+            // 
+            this.LogsBox.AutoSize = true;
+            this.LogsBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LogsBox.Checked = true;
+            this.LogsBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.LogsBox.Location = new System.Drawing.Point(254, 91);
+            this.LogsBox.Name = "LogsBox";
+            this.LogsBox.Size = new System.Drawing.Size(139, 17);
+            this.LogsBox.TabIndex = 12;
+            this.LogsBox.Text = "Логгирование в файл:";
+            this.LogsBox.UseVisualStyleBackColor = true;
+            // 
             // SolutionPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.LogsBox);
             this.Controls.Add(this.secondVar);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -200,5 +215,6 @@
         internal System.Windows.Forms.NumericUpDown firstVar;
         internal System.Windows.Forms.NumericUpDown secondVar;
         internal System.Windows.Forms.Button SolutionFinalButton;
+        internal System.Windows.Forms.CheckBox LogsBox;
     }
 }
