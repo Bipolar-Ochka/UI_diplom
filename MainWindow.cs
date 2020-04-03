@@ -27,6 +27,7 @@ namespace UI_diplom
         bool isWorkNotStarted;
         MethodSettings currentMethodSettings;
         GraphicWindow graphic;
+        Stopwatch watch;
         uint graphicWindowHeight;
         uint graphicWindowWidth;
         uint graphicWindowFPS;
@@ -49,6 +50,7 @@ namespace UI_diplom
             Logging();
             SetupReset();
             SetupSolutionParams();
+            watch = new Stopwatch();
         }
         void ResetBools()
         {
@@ -172,7 +174,7 @@ namespace UI_diplom
                 this.isFuncParams = true;
                 AllReady();
             }
-        }
+        }       
 
          void SetupSolutionParams()
         {
@@ -189,7 +191,6 @@ namespace UI_diplom
                         graphic = new GraphicWindow(graphicWindowHeight, graphicWindowWidth, graphicWindowFPS, graphicWindowVsync, graphicWindowAnit);
                         graphic.SetRectangleLimit(rectangleLimit);
                         RectangleHandler handler = new RectangleHandler(graphic.GetRectangleFromMethod);
-                        //TODO: fix dimensions
                         settings = new GraphicSettings(handler,graphicFirstDimension,graphicSecondDimension);
                         graphic?.Window.SetActive(false);
                     }
@@ -199,8 +200,10 @@ namespace UI_diplom
                         double funcMin = 0;
                         int counter = 0;
                         int optimal = 0;
+                        FormTimer.Start();
+                        watch.Restart();
                         Task.Run(() =>
-                        {
+                        {                            
                             this.isCalculating = true;
                             var solve = MNPD.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.Rule, settings);
                             funcMin = solve.FunctionMinimum;
@@ -211,6 +214,7 @@ namespace UI_diplom
                                 Logs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
                                 graphic?.ShowWindow();
                                 SolutionPanel.button1.Enabled = false;
+                                
                             }
                             ));
                             Trace.WriteLine("end of task");
@@ -219,6 +223,8 @@ namespace UI_diplom
                             this.Invoke(new Action(() =>
                             {
                                 SolutionPanel.button1.Enabled = true;
+                                FormTimer.Stop();
+                                watch.Stop();
                             }));
                             //TODO: NORMAL RESET
                             this.isCalculating = false;
@@ -230,6 +236,8 @@ namespace UI_diplom
                         double funcMin = 0;
                         int counter = 0;
                         int optimal = 0;
+                        FormTimer.Start();
+                        watch.Restart();
                         Task.Run(() =>
                         {
                             var solve = MNPANK.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.SubRule, method.MainRule, settings);
@@ -249,6 +257,8 @@ namespace UI_diplom
                             this.Invoke(new Action(() =>
                             {
                                 SolutionPanel.button1.Enabled = true;
+                                FormTimer.Stop();
+                                watch.Stop();
                             }));
                         });
                     }
@@ -338,9 +348,16 @@ namespace UI_diplom
             мНПМодификацияНКАToolStripMenuItem.Enabled = false;
             this.isDihtomiaCurrentMethod = false;
         }
+
         #endregion
 
-
+        private void FormTimer_Tick(object sender, EventArgs e)
+        {
+            if (watch.IsRunning)
+            {
+                this.Text = $"Выполняется {watch.ElapsedMilliseconds} мс";
+            }
+        }
     }
     abstract class MethodSettings
     {
