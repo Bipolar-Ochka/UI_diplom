@@ -36,7 +36,7 @@ namespace UI_diplom.MethodPanels
             ModMetRuleMainListValue.ValueMember = "rule";
             ModMetRuleMainListValue.DisplayMember = "str";
             ModMetRuleMainListValue.DataSource = Rules;
-            ModMetRuleMainListValue.SelectedIndex = 1;
+            ModMetRuleMainListValue.SelectedIndex = 0;
             ModMetRuleSubListValue.ValueMember = "rule";
             ModMetRuleSubListValue.DisplayMember = "str";
             ModMetRuleSubListValue.DataSource = Rules2;

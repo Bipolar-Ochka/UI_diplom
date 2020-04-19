@@ -84,6 +84,7 @@
             this.SolutionIsGraphBox.TabIndex = 3;
             this.SolutionIsGraphBox.Text = "Решение с графиком";
             this.SolutionIsGraphBox.UseVisualStyleBackColor = true;
+            this.SolutionIsGraphBox.CheckedChanged += new System.EventHandler(this.SolutionIsGraphBox_CheckedChanged);
             // 
             // button1
             // 

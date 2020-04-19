@@ -13,6 +13,7 @@ using MultiDimensionOptimization.MNPDihtomia;
 using MultiDimensionOptimization.MNPModificated;
 using GraphicAddon;
 using System.Diagnostics;
+using System.Threading;
 
 namespace UI_diplom
 {
@@ -28,6 +29,7 @@ namespace UI_diplom
         MethodSettings currentMethodSettings;
         GraphicWindow graphic;
         Stopwatch watch;
+        CancellationTokenSource tokenSource;
         uint graphicWindowHeight;
         uint graphicWindowWidth;
         uint graphicWindowFPS;
@@ -51,6 +53,7 @@ namespace UI_diplom
             SetupReset();
             SetupSolutionParams();
             watch = new Stopwatch();
+            tokenSource = new CancellationTokenSource();
         }
         void ResetBools()
         {
@@ -182,6 +185,7 @@ namespace UI_diplom
             void solution(bool isGraphic)
             {
                 GraphicSettings settings = null;
+                SolutionPanel.button1.Enabled = false;
                 if(isMethodParams && isFuncParams)
                 {
                     if (isGraphic)
@@ -214,20 +218,18 @@ namespace UI_diplom
                                 Logs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
                                 graphic?.ShowWindow();
                                 SolutionPanel.button1.Enabled = false;
-                                
+                                watch.Stop();
                             }
                             ));
-                            Trace.WriteLine("end of task");
                         }).ContinueWith((taskRes) =>
                         {
+                            this.isCalculating = false;
                             this.Invoke(new Action(() =>
                             {
                                 SolutionPanel.button1.Enabled = true;
                                 FormTimer.Stop();
-                                watch.Stop();
                             }));
                             //TODO: NORMAL RESET
-                            this.isCalculating = false;
                         });
                     }
                     else
@@ -240,6 +242,7 @@ namespace UI_diplom
                         watch.Restart();
                         Task.Run(() =>
                         {
+                            this.isCalculating = true;
                             var solve = MNPANK.Solve(method.Function, method.Lipzits, method.Precision, method.LipzitsParametr, method.LowerPoint, method.UpperPoint, method.SubRule, method.MainRule, settings);
                             funcMin = solve.FunctionMinimum;
                             counter = solve.counter;
@@ -247,18 +250,19 @@ namespace UI_diplom
                             this.Invoke(new Action(() =>
                             {
                                 Logs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
+                                watch.Stop();
                             }
                             ));
                             graphic?.Window.SetActive(true);
                             graphic?.ShowWindow();
-                            Trace.WriteLine("end of task");
                         }).ContinueWith((taskRes) =>
                         {
+                            this.isCalculating = false;
                             this.Invoke(new Action(() =>
                             {
                                 SolutionPanel.button1.Enabled = true;
+                                
                                 FormTimer.Stop();
-                                watch.Stop();
                             }));
                         });
                     }

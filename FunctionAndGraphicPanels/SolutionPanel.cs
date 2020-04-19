@@ -58,5 +58,10 @@ namespace UI_diplom.FunctionAndGraphicPanels
         {
             GraphicButtonHandler?.Invoke();
         }
+
+        private void SolutionIsGraphBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
