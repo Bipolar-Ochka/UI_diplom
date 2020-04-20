@@ -204,6 +204,7 @@ namespace UI_diplom
                         double funcMin = 0;
                         int counter = 0;
                         int optimal = 0;
+                        List<double> optimalPoint = null;
                         FormTimer.Start();
                         watch.Restart();
                         Task.Run(() =>
@@ -213,12 +214,14 @@ namespace UI_diplom
                             funcMin = solve.FunctionMinimum;
                             counter = solve.counter;
                             optimal = solve.optimal;
+                            optimalPoint = solve.optimalPoint;
                             this.Invoke(new Action(() =>
                             {
+                                watch.Stop();
                                 Logs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
+                                Logs(string.Join("\r\n", optimalPoint.Select((point, index) => $"x{index} = {String.Format("{0:F8}", point)}")));
                                 graphic?.ShowWindow();
                                 SolutionPanel.button1.Enabled = false;
-                                watch.Stop();
                             }
                             ));
                         }).ContinueWith((taskRes) =>
@@ -238,6 +241,7 @@ namespace UI_diplom
                         double funcMin = 0;
                         int counter = 0;
                         int optimal = 0;
+                        List<double> optimalPoint = null;
                         FormTimer.Start();
                         watch.Restart();
                         Task.Run(() =>
@@ -247,14 +251,18 @@ namespace UI_diplom
                             funcMin = solve.FunctionMinimum;
                             counter = solve.counter;
                             optimal = solve.optimal;
+                            optimalPoint = solve.optimalPoint;
                             this.Invoke(new Action(() =>
                             {
-                                Logs($"Мин. значение функции={funcMin}\nЧисло итерации={counter}\nИтерация оптимального значения={optimal}");
                                 watch.Stop();
+                                Logs($"\r\nМин. значение функции={funcMin}\r\nЧисло итерации={counter}\r\nИтерация оптимального значения={optimal}\r\n");
+                                Logs("Точка оптимума:");
+                                Logs(string.Join("\r\n", optimalPoint.Select((point, index) =>$"x{index} = {String.Format("{0:F8}", point)}")));
+                                graphic?.ShowWindow();
+                                SolutionPanel.button1.Enabled = false;
                             }
                             ));
-                            graphic?.Window.SetActive(true);
-                            graphic?.ShowWindow();
+                            //graphic?.Window.SetActive(true);
                         }).ContinueWith((taskRes) =>
                         {
                             this.isCalculating = false;
