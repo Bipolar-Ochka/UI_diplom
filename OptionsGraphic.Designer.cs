@@ -82,8 +82,6 @@
             // VSyncCheckBox
             // 
             this.VSyncCheckBox.AutoSize = true;
-            this.VSyncCheckBox.Checked = true;
-            this.VSyncCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.VSyncCheckBox.Location = new System.Drawing.Point(209, 123);
             this.VSyncCheckBox.Name = "VSyncCheckBox";
             this.VSyncCheckBox.Size = new System.Drawing.Size(15, 14);

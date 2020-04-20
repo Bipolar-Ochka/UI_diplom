@@ -37,8 +37,12 @@
             this.DihtomiaRule = new System.Windows.Forms.Label();
             this.DihtomiaRuleValue = new System.Windows.Forms.ComboBox();
             this.DihtomiaInput = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.multLipz = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.DihtomiaPrecisionValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DihtomiaLipzitsValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.multLipz)).BeginInit();
             this.SuspendLayout();
             // 
             // DihtomiaTitle
@@ -111,14 +115,14 @@
             0,
             0,
             196608});
-            this.DihtomiaLipzitsValue.Location = new System.Drawing.Point(268, 139);
+            this.DihtomiaLipzitsValue.Location = new System.Drawing.Point(296, 139);
             this.DihtomiaLipzitsValue.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.DihtomiaLipzitsValue.Name = "DihtomiaLipzitsValue";
-            this.DihtomiaLipzitsValue.Size = new System.Drawing.Size(120, 20);
+            this.DihtomiaLipzitsValue.Size = new System.Drawing.Size(92, 20);
             this.DihtomiaLipzitsValue.TabIndex = 5;
             this.DihtomiaLipzitsValue.Value = new decimal(new int[] {
             1,
@@ -129,7 +133,7 @@
             // DihtomiaRule
             // 
             this.DihtomiaRule.AutoSize = true;
-            this.DihtomiaRule.Location = new System.Drawing.Point(50, 182);
+            this.DihtomiaRule.Location = new System.Drawing.Point(53, 283);
             this.DihtomiaRule.Name = "DihtomiaRule";
             this.DihtomiaRule.Size = new System.Drawing.Size(280, 13);
             this.DihtomiaRule.TabIndex = 6;
@@ -139,7 +143,7 @@
             // 
             this.DihtomiaRuleValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DihtomiaRuleValue.FormattingEnabled = true;
-            this.DihtomiaRuleValue.Location = new System.Drawing.Point(53, 198);
+            this.DihtomiaRuleValue.Location = new System.Drawing.Point(56, 299);
             this.DihtomiaRuleValue.Name = "DihtomiaRuleValue";
             this.DihtomiaRuleValue.Size = new System.Drawing.Size(277, 21);
             this.DihtomiaRuleValue.TabIndex = 7;
@@ -154,10 +158,60 @@
             this.DihtomiaInput.UseVisualStyleBackColor = true;
             this.DihtomiaInput.Click += new System.EventHandler(this.DihtomiaInput_Click);
             // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(205, 141);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(67, 17);
+            this.radioButton1.TabIndex = 9;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Вручную";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Location = new System.Drawing.Point(205, 174);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(85, 17);
+            this.radioButton2.TabIndex = 10;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Множ. точн.";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // multLipz
+            // 
+            this.multLipz.DecimalPlaces = 10;
+            this.multLipz.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.multLipz.Location = new System.Drawing.Point(296, 171);
+            this.multLipz.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.multLipz.Name = "multLipz";
+            this.multLipz.Size = new System.Drawing.Size(92, 20);
+            this.multLipz.TabIndex = 11;
+            this.multLipz.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            65536});
+            // 
             // DihtomiaPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.multLipz);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.DihtomiaInput);
             this.Controls.Add(this.DihtomiaRuleValue);
             this.Controls.Add(this.DihtomiaRule);
@@ -171,6 +225,7 @@
             this.Size = new System.Drawing.Size(400, 426);
             ((System.ComponentModel.ISupportInitialize)(this.DihtomiaPrecisionValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DihtomiaLipzitsValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.multLipz)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,5 +242,8 @@
         private System.Windows.Forms.Label DihtomiaRule;
         private System.Windows.Forms.ComboBox DihtomiaRuleValue;
         internal System.Windows.Forms.Button DihtomiaInput;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.NumericUpDown multLipz;
     }
 }

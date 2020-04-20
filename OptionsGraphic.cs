@@ -31,9 +31,9 @@ namespace UI_diplom
         {
             ResolutionComboBox.SelectedIndex = 0;
             FPSComboBox.SelectedIndex = 1;
-            AnitialisingComboBox.SelectedIndex = 3;
-            VSyncCheckBox.Checked = true;
-            MaxItemCountNumeric.Value = 20000;
+            AnitialisingComboBox.SelectedIndex = 2;
+            VSyncCheckBox.Checked = false;
+            MaxItemCountNumeric.Value = 40000;
         }
 
         void SetupResolutions()
@@ -76,7 +76,7 @@ namespace UI_diplom
             AnitialisingComboBox.ValueMember = "lvl";
             AnitialisingComboBox.DisplayMember = "str";
             AnitialisingComboBox.DataSource = Anit;
-            AnitialisingComboBox.SelectedIndex = 3;
+            AnitialisingComboBox.SelectedIndex = 1;
         }
 
         private void Save_Click(object sender, EventArgs e)
