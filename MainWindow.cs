@@ -321,7 +321,7 @@ namespace UI_diplom
             this.graphicWindowFPS = 25;
             this.graphicWindowVsync = true;
             this.graphicWindowAnit = 4;
-            this.rectangleLimit = 50000;
+            this.rectangleLimit = 100000;
         }
 
         private void опцииГрафикиToolStripMenuItem_Click(object sender, EventArgs e)

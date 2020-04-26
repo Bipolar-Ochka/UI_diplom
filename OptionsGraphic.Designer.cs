@@ -151,7 +151,7 @@
             this.MaxItemCountNumeric.Size = new System.Drawing.Size(93, 20);
             this.MaxItemCountNumeric.TabIndex = 10;
             this.MaxItemCountNumeric.Value = new decimal(new int[] {
-            20000,
+            100000,
             0,
             0,
             0});

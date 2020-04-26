@@ -57,7 +57,7 @@ namespace UI_diplom.MethodPanels
             {
                 lipVal = Convert.ToDouble(DihtomiaPrecisionValue.Value) * Convert.ToDouble(multLipz.Value);
             }
-            if (Convert.ToDouble(DihtomiaPrecisionValue.Value) > Convert.ToDouble(DihtomiaLipzitsValue.Value))
+            if (Convert.ToDouble(DihtomiaPrecisionValue.Value) > lipVal)
             {
                 DihtomiaGetParams?.Invoke(Convert.ToDouble(DihtomiaPrecisionValue.Value), lipVal,(RuleD)DihtomiaRuleValue.SelectedValue);
                 DihtomiaInput.Enabled = false;

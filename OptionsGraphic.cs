@@ -33,7 +33,7 @@ namespace UI_diplom
             FPSComboBox.SelectedIndex = 1;
             AnitialisingComboBox.SelectedIndex = 2;
             VSyncCheckBox.Checked = false;
-            MaxItemCountNumeric.Value = 40000;
+            MaxItemCountNumeric.Value = 100000;
         }
 
         void SetupResolutions()
